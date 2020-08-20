@@ -21,6 +21,10 @@ import Foundation
 public extension Scanner {
 	
 	func hs_scanCharacters(from characterSet: CharacterSet) -> String? {
+		#if os(Linux)
+		return scanCharacters(from: characterSet)
+		#else
+        
 		if #available(macOS 10.15, *), #available(iOS 13, *), #available(watchOS 6, *), #available(tvOS 13, *) {
 			return scanCharacters(from: characterSet)
 		}
@@ -29,5 +33,6 @@ public extension Scanner {
 			return String(string)
 		}
 		return nil
+		#endif
 	}
 }
